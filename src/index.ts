@@ -29,6 +29,10 @@ app.use(cors());
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
 
+app.get("/healthcheck", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 if (!Bun.main.endsWith("data.ts")) {
   app.listen(PORT, () => {
     console.log(`API running on http://localhost:${PORT}`);
