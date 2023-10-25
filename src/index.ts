@@ -12,7 +12,12 @@ export const app = express();
 const PORT = 8080;
 export const CurrentGenesisVersion = "0.0.1";
 
-export const ADMIN_IDS = ["799319081723232267"];
+export const ADMIN_IDS = [
+  "799319081723232267", // luna
+  "98133204636028928", // aenri
+  "714583473804935238", // drake
+  "289556910426816513", // zt
+];
 
 if (!(await exists("./plugins"))) {
   await mkdirSync("./plugins");
