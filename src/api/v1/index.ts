@@ -8,7 +8,7 @@ import { pluginsRouter } from "./plugins";
 const router = Router();
 
 export interface updateRequest {
-  uuid?: string;
+  uuid: string;
   version: string;
   plugins: {
     [pluginName: string]: {
@@ -29,7 +29,7 @@ export interface updateResponse {
 router.post("/update", (req, res) => {
   const body = req.body as updateRequest;
   let uuid = body.uuid;
-  if (!uuid) {
+  if (uuid === "") {
     while (true) {
       const newUuid = randomUUID();
       if (!getUser(newUuid)) {
@@ -39,22 +39,7 @@ router.post("/update", (req, res) => {
     }
   }
 
-  const userPlugins = Object.entries(body.plugins).reduce(
-    (acc, [pluginId, plugin]) => {
-      acc[pluginId] = {
-        enabled: plugin.enabled,
-        version: plugin.version,
-      };
-      return acc;
-    },
-    {} as Record<
-      string,
-      {
-        enabled: boolean;
-        version: number;
-      }
-    >,
-  );
+  const userPlugins = Object.keys(body.plugins);
 
   // bump the user's last ping
   updateUser(uuid, Date.now(), body.version, userPlugins);
