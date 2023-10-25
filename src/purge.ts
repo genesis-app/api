@@ -1,7 +1,6 @@
 import { deleteUser, getMetadata, getPurgableUsers, setMetadata } from "./sql";
 
 export function checkPurge() {
-  return purge();
   const lastPurged = getMetadata("lastPurged");
   if (!lastPurged) return purge();
   const lastPurgedDate = new Date(Number(lastPurged));
