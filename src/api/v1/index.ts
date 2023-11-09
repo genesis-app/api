@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { Router } from "express";
 
-import { CurrentGenesisVersion } from "../..";
+import { CurrentGenesisVersions } from "../..";
 import { deleteUser, getPlugin, getUser, updateUser } from "../../sql";
 import { pluginsRouter } from "./plugins";
 
@@ -65,10 +65,12 @@ router.post("/update", (req, res) => {
     }
   }
 
-  if (!body.version.endsWith("b")) {
-    if (body.version !== CurrentGenesisVersion) {
-      updateAvailable = true;
-    }
+  let currentVer = CurrentGenesisVersions.release;
+
+  if (body.version.endsWith("b")) currentVer = CurrentGenesisVersions.dev;
+
+  if (body.version !== currentVer) {
+    updateAvailable = true;
   }
 
   const response: updateResponse = {

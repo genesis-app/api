@@ -7,10 +7,16 @@ import { apiRouter } from "./api";
 import { authRouter } from "./auth/route";
 import { checkPurge } from "./purge";
 import { initDb } from "./sql";
+import { getRelease } from "./utils";
 export const app = express();
 
 const PORT = 8080;
-export const CurrentGenesisVersion = "0.0.1";
+export const CurrentGenesisVersions = {
+  release: "0.0.1",
+  dev: "0.0.1b",
+};
+
+getRelease();
 
 export const ADMIN_IDS = [
   "799319081723232267", // luna
