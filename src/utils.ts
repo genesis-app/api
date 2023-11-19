@@ -13,7 +13,7 @@ export function getRelease() {
     tag_name: string;
     prerelease: boolean;
   }
-  fetch("https://api.github.com/repos/genesis-app/genesis/releases")
+  fetch("https://api.github.com/repos/uninit-org/genesis/releases")
     .then((i) => i.json())
     .then((i) => {
       const releases = (i as GithubRelease[]).sort(
